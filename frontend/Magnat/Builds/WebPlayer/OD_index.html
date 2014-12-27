@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Magnat</title>
+
+		<link rel="stylesheet" href="ODEx/Style.css" />
+		<script type="text/javascript" src="https://api.odnoklassniki.ru/js/fapi5.js"></script>
+
+		<script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
+		<script type="text/javascript">
+			var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
+			if (document.location.protocol == 'https:')
+				unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
+			document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
+		</script>
+		<script type="text/javascript" src="ODEx/Unity.js"></script>
+		<script type="text/javascript" src="ODEx/Script.js"></script>
+	</head>
+	<body>
+		<div class="content">
+			<div id="uploadForm">
+				<form action='' method="POST" enctype="multipart/form-data" name="form" class="uploadForm">
+		          	<div align="center" class="fileloader"><span id="select">Выберите файл (png или jpg, размером до 4 Мб) </span>
+		            <input type="file" name="fileUpload" id="f" value="" onchange='$(".uploadForm").trigger("submit")'> 
+		            <input type="hidden" name="password" value="9a587b45d1878197b3e1316b4c5c00e6">
+		      		</div>
+				</form>
+			</div>
+			<div id="unityPlayer">
+				<div class="missing">
+					<a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+						<img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<p class="footer">&laquo; created with <a href="http://unity3d.com/unity/" title="Go to unity3d.com">Unity</a> &raquo;</p>
+
+	
+	</body>
+</html>
+
+<script type="text/javascript"> 
+$(".uploadForm").submit( function( e ) {
+	$.ajax( {
+		url: 'http://magnatgame.com/radomir.php',
+		type: 'POST',
+		data: new FormData( this ),
+		processData: false,
+		contentType: false,
+		success: function(msg){
+				UnityShow();
+				uform.css("left","1000px");
+				GetUnity().SendMessage("VIPClubForOwner","OnFileSelected",msg);
+		}
+	} );
+	e.preventDefault();
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

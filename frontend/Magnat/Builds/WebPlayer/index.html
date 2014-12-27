@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Unity Web Player | Magnat</title>
+		<script type='text/javascript' src='https://ssl-webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/jquery.min.js'></script>
+		<script type="text/javascript">
+		<!--
+		var unityObjectUrl = "http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js";
+		if (document.location.protocol == 'https:')
+			unityObjectUrl = unityObjectUrl.replace("http://", "https://ssl-");
+		document.write('<script type="text\/javascript" src="' + unityObjectUrl + '"><\/script>');
+		-->
+		</script>
+		<script type="text/javascript">
+		<!--
+			var config = {
+				width: 800, 
+				height: 800,
+				params: { enableDebugging:"0" }
+				
+			};
+			config.params["disableContextMenu"] = true;
+			var u = new UnityObject2(config);
+			var uform = null;
+
+			jQuery(function() {
+
+				var $missingScreen = jQuery("#unityPlayer").find(".missing");
+				var $brokenScreen = jQuery("#unityPlayer").find(".broken");
+				uform = $("#uploadForm");
+				$missingScreen.hide();
+				$brokenScreen.hide();
+
+				u.observeProgress(function (progress) {
+					switch(progress.pluginStatus) {
+						case "broken":
+							$brokenScreen.find("a").click(function (e) {
+								e.stopPropagation();
+								e.preventDefault();
+								u.installPlugin();
+								return false;
+							});
+							$brokenScreen.show();
+						break;
+						case "missing":
+							$missingScreen.find("a").click(function (e) {
+								e.stopPropagation();
+								e.preventDefault();
+								u.installPlugin();
+								return false;
+							});
+							$missingScreen.show();
+						break;
+						case "installed":
+							$missingScreen.remove();
+						break;
+						case "first":
+						break;
+					}
+				});
+				u.initPlugin(jQuery("#unityPlayer")[0], "VKWebPlayer.unity3d");
+			});
+		-->
+		</script>
+
+		<script src="//vk.com/js/api/xd_connection.js?2"  type="text/javascript">
+		</script>
+
+		<script type="text/javascript"> 
+		VK.init(
+			function() 
+			{ 
+				// API initialization succeeded 
+				// Your code here 
+				console.log("VK Inited!");
+
+				VK.addCallback('onWindowBlur', function(settings) { UnityHide(); });
+				VK.addCallback('onWindowFocus', function(settings) { UnityShow(); });
+			}, 
+			function() 
+			{ 
+				// API initialization failed 
+				// Can reload page here 
+			}, '5.24'); 
+
+		function GetUnity()
+		{
+			return u.getUnity();
+		}
+
+		function UnityHide()
+		{
+			console.log("----- HIDE WINDOW");
+			GetUnity().style.left = '2000px';
+			GetUnity().style.position = 'relative';
+		}
+
+		function UnityShow()
+		{
+			console.log("----- SHOW WINDOW");
+			GetUnity().style.left = '0px';
+		}
+
+		function SendToPlayer(func, what)
+		{
+			console.log("snding to player ["+func+"] : ["+what+"]");
+			GetUnity().SendMessage("SocialManager",func,what);
+		}
+
+		function GetParams()
+		{
+			//console.log("Get params : " + document.location.href + '');
+			SendToPlayer("RecvParams",document.location.href + '');
+		}
+
+		function OpenFileDialog()
+		{
+			UnityHide();
+			uform.css("left","0px");
+		}
+
+		function GetFriends(uid)
+		{
+			VK.api("friends.getAppUsers","", function(data)
+			{
+				if (data.response)
+				{
+					var users = ""+data.response[0];
+					for (var i=1;i<data.response.length;i++)
+						users = users+","+data.response[i];
+					console.log("Friends '"+users+"'");
+					VK.api("users.get", {user_ids:users,fields:"id,first_name,last_name,photo_100"}, function(data) {
+						var res = "";
+						for (var i = 0;i<data.response.length; i++)
+						{
+							res += "[";
+							res += data.response[i]['id']+",";
+							res += data.response[i]['first_name']+",";
+							res += data.response[i]['last_name']+",";
+							res += data.response[i]['photo_100'];
+							res += "]";
+						}
+						SendToPlayer("OnGetFriends",res);
+					});
+				}
+			});
+		}
+
+		function GetProfile(uid)
+		{
+			VK.api("users.get", {user_ids:uid,fields:"id,first_name,last_name,photo_100"}, function(data) {
+						console.log(data);
+						var Id = "";
+						var Fname = "";
+						var Lname = "";
+						var Photo = "       ";
+						if (data.response)
+						{
+							for (var i = data.response.length - 1; i >= 0; i--) 
+							{
+								Id = data.response[i]['id'];
+								Fname = data.response[i]['first_name'];
+								Lname = data.response[i]['last_name'];
+								Photo = data.response[i]['photo_100'];
+								var Profile = [Id,Fname,Lname,Photo];
+								SendToPlayer("OnGetPlayer",""+Profile);
+							}
+						}	
+				});
+		}
+
+		function ShowInvite()
+		{
+			console.log("------- showInviteBox");
+			VK.callMethod("showInviteBox");
+			UnityHide();
+		}
+
+		function order(gid) 
+		{
+			UnityHide();
+			var params = {
+				type: 'item',
+				item: gid
+			};
+			VK.callMethod('showOrderBox', params);
+		}
+
+		VK.addCallback('onOrderSuccess', function(order_id) {
+			UnityShow();
+			GetUnity().SendMessage("Bank","OnPaymentSuccessful",order_id);
+		});
+
+		VK.addCallback('onOrderFail', function() {
+			UnityShow();
+			GetUnity().SendMessage("Bank","OnPaymentError","");
+		});
+
+		VK.addCallback('onOrderCancel', function() {
+			UnityShow();
+			GetUnity().SendMessage("Bank","OnPaymentCancel","");
+		});
+
+		function OpenInNewTab(url) {
+		  var win = window.open(url, '_blank');
+		  win.focus();
+		}
+
+		</script>
+
+		<style type="text/css">
+		<!--
+		body {
+			font-family: Helvetica, Verdana, Arial, sans-serif;
+			background-color: white;
+			color: black;
+			text-align: center;
+			padding: 0px;
+			margin: 0px;
+		}
+		a:link, a:visited {
+			color: #000;
+		}
+		a:active, a:hover {
+			color: #666;
+		}
+		p.header {
+			font-size: small;
+		}
+		p.header span {
+			font-weight: bold;
+		}
+		p.footer {
+			font-size: x-small;
+		}
+		div.content {
+			margin: auto;
+			width: 800px;
+		}
+		div.broken,
+		div.missing {
+			margin: auto;
+			position: relative;
+			top: 50%;
+			width: 193px;
+		}
+		div.broken a,
+		div.missing a {
+			height: 63px;
+			position: relative;
+			top: -31px;
+		}
+		div.broken img,
+		div.missing img {
+			border-width: 0px;
+		}
+		div.broken {
+			display: none;
+		}
+		div#unityPlayer {
+			cursor: default;
+			height: 800px;
+			width: 800px;
+		}
+		div#uploadForm {
+			position: absolute;
+			left: 800px;
+		}
+		-->
+		
+		
+		#uploadForm{
+			left: 0px;
+			background: #000;
+			opacity: 0.75;
+			width: 800px;
+			height: 800px;
+		}
+		
+		#uploadForm > form{
+			background: #fff;
+			width: 400px;
+			height: 40px;
+			padding: 60px 40px;
+			margin-left: 150px;
+			margin-top: 260px;
+			border-radius: 10px;
+			box-shadow: 0 0 5px #000;
+			border: 1px solid #000;
+		}
+		
+		#uploadForm > #select{
+			padding-bottom: 10px;
+			display: inline-block;
+			color: #595959;
+		}
+
+		#closeDialog {
+			top: 40px;
+			position: relative;
+			left: -115px;
+			width: 100px;
+		}
+
+		#acceptDialog
+		{
+			top: 140px;
+			position: relative;
+			left: -115px;
+			width: 100px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div id="uploadForm">
+				<form action='' method="POST" enctype="multipart/form-data" name="form" class="uploadForm">
+		          	<div align="center" class="fileloader"><span id="select">Выберите файл (png или jpg, размером до 4 Мб) </span>
+		            <input type="file" name="fileUpload" id="f" value="" onchange='$(".uploadForm").trigger("submit")'> 
+		            <input type="hidden" name="password" value="9a587b45d1878197b3e1316b4c5c00e6">
+		            <input type="submit" value="Закрыть" id="closeDialog" onclick="UnityShow(); uform.css('left','1000px');">
+		      		</div>
+				</form>
+			</div>
+			<div id="unityPlayer">
+				<div class="missing">
+					<a href="https://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+						<img alt="Unity Web Player. Install now!" src="https://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<p class="footer">&laquo; created with <a href="https://unity3d.com/unity/" title="Go to unity3d.com">Unity</a> &raquo;</p>
+
+	
+	</body>
+</html>
+
+<script type="text/javascript"> 
+$(".uploadForm").submit( function( e ) {
+	e.preventDefault();
+	if ($("#f").val)
+	{
+		$.ajax( {
+			url: 'https://magnatgame.com/radomir.php',
+			type: 'POST',
+			data: new FormData( this ),
+			processData: false,
+			contentType: false,
+			success: function(msg){
+					UnityShow();
+					uform.css("left","1000px");
+					GetUnity().SendMessage("VIPClubForOwner","OnFileSelected",msg);
+			}
+		} );
+	}
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

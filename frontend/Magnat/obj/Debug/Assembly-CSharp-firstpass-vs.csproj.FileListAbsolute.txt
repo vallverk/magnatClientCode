@@ -1,0 +1,12 @@
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\SampleClassLibrary.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\UnityEditor.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\UnityEngine.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\Mono.Cecil.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\nunit.framework.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\Unity.DataContract.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
+C:\UnityProjects\magnatgeme\frontend\Magnat\obj\Debug\Assembly-CSharp-firstpass.dll
+C:\UnityProjects\magnatgeme\frontend\Magnat\obj\Debug\Assembly-CSharp-firstpass.pdb
