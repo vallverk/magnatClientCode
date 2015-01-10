@@ -41,6 +41,7 @@ public class EveryDayBonusWindow : WindowBehavoiur
 #if !UNITY_EDITOR
 				frCash = SocialManager.Instance.Friends.Count*50000;
 #endif
+				frCash += cash;
 				if (u.Nunber == 6)
 					ServerInfo.Instance.UpdateUserGold(1,()=>{});
 				if (u.Nunber == 7)

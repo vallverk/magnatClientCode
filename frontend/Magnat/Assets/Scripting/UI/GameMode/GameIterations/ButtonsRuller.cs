@@ -106,7 +106,7 @@ public class ButtonsRuller
 		}
 
 		// таможня
-		if (f.Effect == GameField.FieldEffects.Customs)
+		if (f.Effect == GameField.FieldEffects.Customs && manager.CurrentPostEffect ==  PostEffect.Customs)
 		{
 			if (p.Cash < CustomsExitPrice)
 				// таможенники требуют денег за проход. no money - no honey!
@@ -445,7 +445,7 @@ public class ButtonsRuller
 		Player p = currentPlayer;
 		GameField field = GameFieldsManager.GetFieldAtPlayer(p.OwnerID);
 
-        if (field.Effect == GameField.FieldEffects.Customs) return true;
+        if (field.Effect == GameField.FieldEffects.Customs && manager.CurrentPostEffect == PostEffect.Customs) return true;
 
 		if (currentState != IterationStep.FinishStep) return false;
 		if (field.Effect == GameField.FieldEffects.GameEffect && field.Owner != GameField.Owners.None)
