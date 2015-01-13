@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class ServerGameList : MonoBehaviour 
 {
@@ -30,31 +31,9 @@ public class ServerGameList : MonoBehaviour
 
 	private void UpdateInfo(GameInfo[] gis)
 	{
-		foreach (var g in gis)
-		{
-			if (g.UserList.Contains(SocialManager.Instance.ViewerID) && g.Status == 1 && 
-			    !ServerData.IsGameAtBlackList(g.GUID.ToString()))
-			{
-				// ready to start!... maybe....
-				#if !UNITY_EDITOR
-				bool canLoad = true;
-				for (int i=0;i<g.UserList.Count;i++)
-					if (SocialManager.GetUserData(g.UserList[i]) == null)
-				{
-					canLoad = false;
-					break;
-				}
-				//  rly ready to start!
-				if (canLoad)
-					#endif
-				{
-					PlayerPrefs.SetString("LoadGame",JSONSerializer.Serialize(g));
-					Application.LoadLevel(2);
-				}
-			}
-		}
+        CheckStartGame(gis);
 
-		var players = GridGO.transform.GetComponentsInChildren<GameInfoController>();
+	    var players = GridGO.transform.GetComponentsInChildren<GameInfoController>();
 		if (players == null) return;
 		List<GameInfoController> games = new List<GameInfoController>(players);
 		
@@ -69,21 +48,21 @@ public class ServerGameList : MonoBehaviour
 				break;
 			}
 
-            if (con != null) games.Remove(con);//if (!con.Players.All(p => p == SocialManager.Instance.UserId))
-			
-			if (con == null && gi.Status==0)
+            if (con != null) games.Remove(con);
+
+            if (con == null && (gi.Status == 0 && !CanStartGame(gi)))
 			{
 				GameObject go = NGUITools.AddChild(GridGO,GameLabelPrefab) as GameObject;
 				go.GetComponent<GameInfoController>().SetInfo(gi,true);
 				GridGO.GetComponent<UIGrid>().AddChild(go.transform);
 			} 
 			
-			if (con!=null && gi.Status != 0)
+			if (con!=null && (gi.Status != 0 || CanStartGame(gi)))
 			{
 				Destroy(con);
 			}
 			
-			if (con!=null && gi.Status == 0)
+			if (con!=null && (gi.Status == 0 && !CanStartGame(gi)))
 			{
 				con.SetInfo(gi,true);
 			}
@@ -96,4 +75,49 @@ public class ServerGameList : MonoBehaviour
 			games.RemoveAt(0);
 		}
 	}
+
+    private void CheckStartGame(GameInfo[] gis)
+    {
+        Debug.Log("Update");
+        var players = GridGO.transform.GetComponentsInChildren<GameInfoController>();
+
+        List<GameInfoController> games = new List<GameInfoController>(players);
+		
+
+
+        foreach (var g in gis)
+        {
+            GameInfoController con = games.FirstOrDefault(t => t.GameID == g.GUID);
+
+            Debug.Log(g.GameName);
+            Debug.Log(g.Status);
+
+            if (g.UserList.Contains(SocialManager.Instance.ViewerID) && (g.Status == 1) &&
+                !ServerData.IsGameAtBlackList(g.GUID.ToString()) && GameInfoController.ConnectedGameID == g.GUID)
+            {
+                // ready to start!... maybe....
+#if !UNITY_EDITOR
+				bool canLoad = true;
+				for (int i=0;i<g.UserList.Count;i++)
+					if (SocialManager.GetUserData(g.UserList[i]) == null)
+				{
+					canLoad = false;
+					break;
+				}
+				//  rly ready to start!
+				if (canLoad)
+					#endif
+                {
+                    Debug.Log("LOAD");
+                    PlayerPrefs.SetString("LoadGame", JSONSerializer.Serialize(g));
+                    Application.LoadLevel(2);
+                }
+            }
+        }
+    }
+
+    bool CanStartGame(GameInfo gameInfo)
+    {
+        return gameInfo.PlayersCount == gameInfo.UserList.Count;
+    }
 }

@@ -28,7 +28,7 @@ public class ImageLoader : Singleton<ImageLoader>
 
 	private void Write(string s)
 	{
-		Debug.Log("ImageLoader-> "+s);
+		//Debug.Log("ImageLoader-> "+s);
 	}
 
 	IEnumerator Loader()
