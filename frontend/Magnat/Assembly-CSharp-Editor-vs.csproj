@@ -180,7 +180,7 @@
      <None Include="Assets\NGUI\Examples\Resources\Localization.txt" />
      <None Include="Assets\Graphics\Shaders\LitBumpMonoColor.shader" />
  <Reference Include="SampleClassLibrary">
- <HintPath>E:/Projects/magnatgame-NewUnityBranch/magnatgame-NewUnityBranch/frontend/Magnat/Assets/JsonDotNet/Examples/Tests/TestModels/SampleClassLibrary.dll</HintPath>
+ <HintPath>E:/Projects/MagnatGit/frontend/Magnat/Assets/JsonDotNet/Examples/Tests/TestModels/SampleClassLibrary.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
