@@ -16,7 +16,7 @@ public partial class GameManager : MonoBehaviour
 		stepsToCreditReturn = 25;
         buttonsManager.HideButtons();
         buttonsManager.ShowButtons();
-		LogToMainChat("Вы успешно взяли кредит. Если вы не вернете его в течении 25 хотов - вы автоматически становитесь банкротом.");
+		LogToMainChat("Вы успешно взяли кредит. Если вы не вернете его в течении 25 ходов - вы автоматически становитесь банкротом.");
 	}
 
 	public void ReturnCredit()
