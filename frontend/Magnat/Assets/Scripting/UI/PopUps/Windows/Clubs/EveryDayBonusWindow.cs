@@ -54,6 +54,6 @@ public class EveryDayBonusWindow : WindowBehavoiur
 
 				ServerInfo.Instance.UpdateBonusActive();
 			}
-		},false);
+		},true);
 	}
 }
