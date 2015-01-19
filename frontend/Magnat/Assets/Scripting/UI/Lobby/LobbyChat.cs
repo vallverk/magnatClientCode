@@ -72,26 +72,31 @@ public class LobbyChat : MonoBehaviour
 #endif
 	}
 
-	string GetUserName(string UserID)
-	{
-		if (SocialManager.Instance.SocialData.ContainsKey(UserID))
-		{
-			return SocialManager.Instance.SocialData[UserID].FirstName;
-		}
-		else
-		{
-			SocialManager.GetUserInfo(UserID);
-			return UserID;
-		}
-	}
-
 	void OnChatMessage (string Room, string UserID, string Message)
 	{
-		if (Room == "Lobby")
-			NGUIDebugConsole.Log(string.Format("[{0}] {1} : {2}",DateTime.Now.ToString("H:mm:ss"),GetUserName(UserID),Message));
+	    if (Room == "Lobby")
+	    {
+	        StartCoroutine(LogMessage(Room, UserID, Message));
+	    }
+	    //NGUIDebugConsole.Log(string.Format("[{0}] {1} : {2}",DateTime.Now.ToString("H:mm:ss"),GetUserName(UserID),Message));
 	}
 
-	void OnConnectFailed (string obj)
+    private IEnumerator LogMessage(string Room, string UserID, string Message)
+    {
+
+        string name = "";
+        while (!SocialManager.Instance.SocialData.ContainsKey(UserID))
+        {
+            SocialManager.GetUserInfo(UserID);
+            yield return null;
+        }
+
+        name = SocialManager.Instance.SocialData[UserID].FirstName;
+        
+        NGUIDebugConsole.Log(string.Format("[{0}] {1} : {2}", DateTime.Now.ToString("H:mm:ss"), name, Message));
+    }
+
+    void OnConnectFailed (string obj)
 	{
 		NGUIDebugConsole.Log("Не удалось подключиться к лобби-чату. Обновите страницу.");
 		//NGUIDebugConsole.LogSystem("Ошибка подключения: "+obj);
