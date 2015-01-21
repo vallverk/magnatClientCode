@@ -78,7 +78,6 @@ public class ServerGameList : MonoBehaviour
 
     private void CheckStartGame(GameInfo[] gis)
     {
-        Debug.Log("Update");
         var players = GridGO.transform.GetComponentsInChildren<GameInfoController>();
 
         List<GameInfoController> games = new List<GameInfoController>(players);
@@ -88,9 +87,6 @@ public class ServerGameList : MonoBehaviour
         foreach (var g in gis)
         {
             GameInfoController con = games.FirstOrDefault(t => t.GameID == g.GUID);
-
-            Debug.Log(g.GameName);
-            Debug.Log(g.Status);
 
             if (g.UserList.Contains(SocialManager.Instance.ViewerID) && (g.Status == 1) &&
                 !ServerData.IsGameAtBlackList(g.GUID.ToString()) && GameInfoController.ConnectedGameID == g.GUID)
@@ -108,7 +104,6 @@ public class ServerGameList : MonoBehaviour
 				if (canLoad)
 					#endif
                 {
-                    Debug.Log("LOAD");
                     PlayerPrefs.SetString("LoadGame", JSONSerializer.Serialize(g));
                     Application.LoadLevel(2);
                 }
