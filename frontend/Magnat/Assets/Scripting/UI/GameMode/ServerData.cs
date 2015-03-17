@@ -82,6 +82,8 @@ public class ServerData : MonoBehaviour
 
 	public GameInfo GetGameInfo()
 	{
+	    return JSONSerializer.Deserialize<GameInfo>(ServerGameList.GameInfo);
+
 #if UNITY_EDITOR
 		return GetDebugGame();
 #else

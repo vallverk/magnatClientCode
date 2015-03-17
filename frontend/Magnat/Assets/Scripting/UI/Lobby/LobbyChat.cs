@@ -53,7 +53,7 @@ public class LobbyChat : MonoBehaviour
 				                                   DateTime.Now.ToString("H:mm:ss"),
 				                                   "Администрация",
 				                                   "Рекомендуем сразу вступить " +
-				                                   "в [url=https://vk.com/magnatgamegroup]наш клуб[/url]. " +
+				                                   "в [url=http://vk.com/magnatgamegroup]наш клуб[/url]. " +
 				                                   "Здесь ты можешь получить любые ответы по игре и не только. " + 
 				                                   "Сейчас в игре "+obj+" пользователей и "+games.Length+" игр."));
 			});

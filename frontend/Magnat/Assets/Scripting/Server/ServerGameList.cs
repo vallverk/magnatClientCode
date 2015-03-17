@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class ServerGameList : MonoBehaviour 
+public class ServerGameList : MonoBehaviour
 {
+    public static string GameInfo;
+
 	public GameObject GridGO;
 	public GameObject GameLabelPrefab;
 
@@ -104,7 +106,7 @@ public class ServerGameList : MonoBehaviour
 				if (canLoad)
 					#endif
                 {
-                    PlayerPrefs.SetString("LoadGame", JSONSerializer.Serialize(g));
+                    ServerGameList.GameInfo = JSONSerializer.Serialize(g); //PlayerPrefs.SetString("LoadGame", JSONSerializer.Serialize(g));
                     Application.LoadLevel(2);
                 }
             }

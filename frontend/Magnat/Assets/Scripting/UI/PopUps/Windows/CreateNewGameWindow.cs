@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class CreateNewGameWindow : WindowBehavoiur 
@@ -39,6 +40,7 @@ public class CreateNewGameWindow : WindowBehavoiur
 
 	public void CreateGame()
 	{ 
+        Debug.Log("Create game");
 		GetData();
 		try
 		{
@@ -70,8 +72,9 @@ public class CreateNewGameWindow : WindowBehavoiur
 				}
 			},true);
 		} 
-		catch
+		catch(Exception e)
 		{ 
+            Debug.Log(e);
 			AlertWindow.Show("ОШИБКА","Ошибка создания игры. Перезагрузите страницу и попробуйте еще раз.");
 		}
 	}

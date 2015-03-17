@@ -83,10 +83,14 @@ public class SocialManager : MonoBehaviour
 		#if UNITY_EDITOR
 		#if PlatformVK
 		//this.ViewerID = "249156791"; // FG test
-		this.ViewerID = "15361226"; // My 
+     //   this.ViewerID = "54546122"; // My 
+
+        this.ViewerID = GameObject.Find("Loader").GetComponent<PlayerLoader>().id[GameObject.Find("Loader").GetComponent<PlayerLoader>().index];
+        //this.ViewerID = "15361226"; // My 
+
 		//this.ViewerID = "42048261"; // Alex
 		//this.ViewerID = "25417055"; // Oleg
-		this.AuthKey = MD5Convertor.getMd5Hash("4496266_"+this.ViewerID+"_E4YICIo0hwlML3eJoGiZ");
+        this.AuthKey = MD5Convertor.getMd5Hash("4803588_" + this.ViewerID + "_Zy8R7D5GEqG4YtgIBNgm");
 		IsLoaded = true;
 		OnBaseDataLoaded();
 		#endif
@@ -120,7 +124,7 @@ public class SocialManager : MonoBehaviour
 	{
 		
 		if (a.StartsWith("https"))
-			Protocol = "https";
+            Protocol = "http";
 		else
 			Protocol = "http";
 		

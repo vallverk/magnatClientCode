@@ -74,11 +74,14 @@ public class GameInfoController : MonoBehaviour
                 return;
             }
         }
+
+        GameInfoController.ConnectedGameID = -1;
+
         if (DisconectCallback != null)
             DisconectCallback();
 
     }
-
+     
     public void SetInfo(GameInfo info, bool andUpdate)
 	{
 		GameType = info.GameType == 0? GameMode.Normal:GameMode.TwoVSTwo;

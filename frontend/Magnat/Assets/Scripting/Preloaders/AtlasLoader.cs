@@ -76,7 +76,7 @@ public class AtlasLoader : MonoBehaviour
 
 		#endif
 
-		PlayerPrefs.SetString("LoadGame",JSONSerializer.Serialize(g));
+	    ServerGameList.GameInfo = JSONSerializer.Serialize(g); // PlayerPrefs.SetString("LoadGame", JSONSerializer.Serialize(g));
 		Application.LoadLevel(2);
 		yield break;
 	}

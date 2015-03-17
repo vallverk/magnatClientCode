@@ -76,32 +76,40 @@ public class ServerPoolASync:ServerPoolSync
 	{
 		while(true)
 		{
-			try
-			{
-				if (sendPool.Count>0)
-				{
-					var buffer = sendPool;
-					sendPool = new List<KeyValuePair<Query, Action<Query>>>();
-					buffer.Reverse();
-					foreach (var pair in buffer)
-					{
-						Query request = SendPostRequest(pair.Key,10);
-						while (request == null)
-						{
-							Thread.Sleep(100);
-							request = SendPostRequest(pair.Key,10);
-						}
-						while (busy) { Thread.Sleep(10); }
-						busy = true;
-						if(pair.Key.Args!=null)
-							requestPool.Add(request,pair.Value);
-						busy = false;
-					}
-					buffer.Clear();
-				}
-				else
-					Thread.Sleep(50);
-			} catch { Thread.Sleep(50); }
+		    try
+		    {
+		        if (sendPool.Count > 0)
+		        {
+		            var buffer = sendPool;
+		            sendPool = new List<KeyValuePair<Query, Action<Query>>>();
+		            buffer.Reverse();
+		            foreach (var pair in buffer)
+		            {
+		                Query request = SendPostRequest(pair.Key, 10);
+		                while (request == null)
+		                {
+		                    Thread.Sleep(100);
+		                    request = SendPostRequest(pair.Key, 10);
+		                }
+		                while (busy)
+		                {
+		                    Thread.Sleep(10);
+		                }
+		                busy = true;
+		                if (pair.Key.Args != null)
+		                    requestPool.Add(request, pair.Value);
+		                busy = false;
+		            }
+		            buffer.Clear();
+		        }
+		        else
+		            Thread.Sleep(50);
+		    }
+		    catch (Exception e)
+		    {
+                Debug.Log("EXception " + e);
+		        Thread.Sleep(50);
+		    }
 		}
 	}
 

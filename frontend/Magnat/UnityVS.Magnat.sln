@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Magnat.CSharp", "UnityVS.Magnat.CSharp.csproj", "{17EA26AB-2D23-FB4C-BEB2-E0B33BE04562}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Magnat.CSharp.Editor", "UnityVS.Magnat.CSharp.Editor.csproj", "{7DE276B9-B0A3-77F0-0F7C-C7E2E1055C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.Magnat.CSharp.Plugins", "UnityVS.Magnat.CSharp.Plugins.csproj", "{7AAC8634-FFE4-14B7-FF74-C1831C57B194}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17EA26AB-2D23-FB4C-BEB2-E0B33BE04562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EA26AB-2D23-FB4C-BEB2-E0B33BE04562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EA26AB-2D23-FB4C-BEB2-E0B33BE04562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EA26AB-2D23-FB4C-BEB2-E0B33BE04562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE276B9-B0A3-77F0-0F7C-C7E2E1055C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE276B9-B0A3-77F0-0F7C-C7E2E1055C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE276B9-B0A3-77F0-0F7C-C7E2E1055C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE276B9-B0A3-77F0-0F7C-C7E2E1055C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AAC8634-FFE4-14B7-FF74-C1831C57B194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AAC8634-FFE4-14B7-FF74-C1831C57B194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AAC8634-FFE4-14B7-FF74-C1831C57B194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AAC8634-FFE4-14B7-FF74-C1831C57B194}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

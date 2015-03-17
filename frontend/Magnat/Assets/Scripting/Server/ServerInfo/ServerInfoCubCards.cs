@@ -12,7 +12,7 @@ public partial class ServerInfo : Singleton<ServerInfo>
 		Pool.SendPostRequestAsync(q,(res)=>{
             ClubCard[] cards = JSONSerializer.Deserialize<ClubCard[]>(res.Args[0].ToString());
             for (int i = 0; i < cards.Length; i++)
-                cards[i].image = "https://magnatgame.com" + cards[i].image;
+                cards[i].image = "http://magnatgame.com" + cards[i].image;
 			Callback(cards);
 		});
 	}

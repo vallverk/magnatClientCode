@@ -1,0 +1,11 @@
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\SampleClassLibrary.dll
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\UnityEditor.dll
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\UnityEngine.dll
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\Assembly-CSharp-firstpass.pdb
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\UnityEngine.xml
+F:\Projects\MagnatGit\frontend\Magnat\Temp\UnityVS_bin\Debug\UnityEditor.xml
+F:\Projects\MagnatGit\frontend\Magnat\obj\Debug\UnityVS.Magnat.CSharp.csprojResolveAssemblyReference.cache
+F:\Projects\MagnatGit\frontend\Magnat\obj\Debug\Assembly-CSharp.dll
+F:\Projects\MagnatGit\frontend\Magnat\obj\Debug\Assembly-CSharp.pdb

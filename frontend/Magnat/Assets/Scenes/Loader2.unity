@@ -761,12 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f646abfc070b94a9add9c1602c9a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id:
-  - 15361226
-  - 54546122
-  - 42048261
-  - 25417055
-  index: 0
+  id: 54546122
 --- !u!4 &1529116375
 Transform:
   m_ObjectHideFlags: 0
@@ -898,11 +893,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LoadingData:
-  - ImageURL: http://magnatgame.com/Lobby.png
+  - ImageURL: https://magnatgame.com/Lobby.png
     MaterialToSet: {fileID: 2100000, guid: 652bd9a916d6f4986918bada9e35170a, type: 2}
-  - ImageURL: http://magnatgame.com/PopUps.png
+  - ImageURL: https://magnatgame.com/PopUps.png
     MaterialToSet: {fileID: 2100000, guid: efbd4e80c6e83a0469bf6ed4da7ef9e4, type: 2}
-  - ImageURL: http://magnatgame.com/GameModeHalf.png
+  - ImageURL: https://magnatgame.com/GameModeHalf.png
     MaterialToSet: {fileID: 2100000, guid: 74b7b6a4908ca4bafaec92f7a36c8a97, type: 2}
   Progress: {fileID: 1240338728}
 --- !u!4 &1783353337

@@ -81,13 +81,18 @@ public class SocketClient : MonoBehaviour
 
 	public static String Receive(Socket S)
 	{
-		try
-		{
-			byte[] buffer = new byte[10240]; 
-			int bytesRec = S.Receive(buffer);
-			string res = DataTransfer.GetString(buffer,bytesRec);
-			return res;
-		} catch {return "";}
+	    try
+	    {
+	        byte[] buffer = new byte[10240];
+	        int bytesRec = S.Receive(buffer);
+	        string res = DataTransfer.GetString(buffer, bytesRec);
+	        return res;
+	    }
+	    catch (Exception e)
+	    {
+            print(e.Message);
+	        return "";
+	    }
 	}
 
 	public static bool Send(Socket S, string Text)

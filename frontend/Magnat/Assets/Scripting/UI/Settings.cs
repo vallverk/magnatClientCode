@@ -43,6 +43,6 @@ public class Settings : MonoBehaviour
 
 	public void OpenHelp()
 	{
-		Application.ExternalEval("window.open('https://vk.com/magnatgamegroup','User Profile')");
+		Application.ExternalEval("window.open('http://vk.com/magnatgamegroup','User Profile')");
 	}
 }
