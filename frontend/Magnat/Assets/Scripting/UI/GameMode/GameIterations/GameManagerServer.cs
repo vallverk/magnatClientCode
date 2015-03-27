@@ -462,7 +462,7 @@ public partial class GameManager : MonoBehaviour
 			}
 		} catch (System.Exception e)
 		{
-			//Write("Ошибка распознавания сообщения: "+e.Message+"\r\n"+e.StackTrace);
+			Debug.Log("Ошибка распознавания сообщения: "+e.Message+"\r\n"+e.StackTrace);
 		}
 	}
 }

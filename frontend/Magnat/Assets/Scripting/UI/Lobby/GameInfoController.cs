@@ -100,46 +100,57 @@ public class GameInfoController : MonoBehaviour
 			UpdateVisual();
 	}
 
+    private bool _connecting;
 	public void Connect()
 	{
-	    GameInfoController.DisconectFromAll(() =>
+	    if (!_connecting)
 	    {
-	        ServerInfo.Instance.GetUserInfo(SocialManager.User, (u) =>
+	        _connecting = true;
+	        GameInfoController.DisconectFromAll(() =>
 	        {
-	            if (u.Gold < Bet)
-	                AlertWindow.Show("ОШИБКА",
-	                    "У вас не достаточно золота для вступления в игру");
-	            else
+	            ServerInfo.Instance.GetUserInfo(SocialManager.User, (u) =>
 	            {
-	                if (u.GameCards <= 0 && u.VIP == 0)
-	                    GameObject.FindObjectOfType<NoCards>().Show();
+	                if (u.Gold < Bet)
+	                {
+	                    AlertWindow.Show("ОШИБКА",
+	                        "У вас не достаточно золота для вступления в игру");
+	                    _connecting = false;
+	                }
 	                else
 	                {
-	                    if (Password == "-")
-	                    {
-	                        // пароля нет, зягружаем инфу...
-	                        RlyConnect();
-	                    }
+	                    if (u.GameCards <= 0 && u.VIP == 0)
+	                        GameObject.FindObjectOfType<NoCards>().Show();
 	                    else
 	                    {
-	                        // проверка на пароль
-	                        GetTextDialogWindow.Show("ВВЕДИТЕ ПАРОЛЬ", "", (pass) =>
+	                        if (Password == "-")
 	                        {
-	                            if (pass == null)
+	                            // пароля нет, зягружаем инфу...
+	                            RlyConnect();
+	                        }
+	                        else
+	                        {
+	                            // проверка на пароль
+	                            GetTextDialogWindow.Show("ВВЕДИТЕ ПАРОЛЬ", "", (pass) =>
 	                            {
-	                            }
-	                            //AlertWindow.Show("ОШИБКА","Пароль для приватной игры введен не правильно");
-	                            else if (Password != MD5Convertor.getMd5Hash(pass))
-	                                AlertWindow.Show("ОШИБКА",
-	                                    "Пароль для приватной игры введен не правильно");
-	                            else
-	                                RlyConnect();
-	                        });
+	                                if (pass == null)
+	                                {
+	                                }
+	                                //AlertWindow.Show("ОШИБКА","Пароль для приватной игры введен не правильно");
+	                                else if (Password != MD5Convertor.getMd5Hash(pass))
+	                                {
+	                                    AlertWindow.Show("ОШИБКА",
+	                                        "Пароль для приватной игры введен не правильно");
+	                                    _connecting = false;
+	                                }
+	                                else
+	                                    RlyConnect();
+	                            });
+	                        }
 	                    }
 	                }
-	            }
-	        }, false);
-	    });
+	            }, false);
+	        });
+	    }
 	}
 
 	private void RlyConnect()
@@ -162,6 +173,8 @@ public class GameInfoController : MonoBehaviour
 		if (ConnectedGameID == -1)
 			ServerInfo.Instance.ConnectTo2x2GameAnnounce(GameID,"",Team,(res)=>{
 				//if (res) ConnectedGameID = GameID;
+                _connecting = false;
+
 				if (res == 200)
 					ConnectedGameID = GameID;
 			});
@@ -169,7 +182,8 @@ public class GameInfoController : MonoBehaviour
 	
 	public void Disconnect()
 	{
-	    //DisconectCallback = disconectCallback;
+        _connecting = false;
+        //DisconectCallback = disconectCallback;
         Debug.Log(ConnectedGameID);
 		if (ConnectedGameID!=-1)
 		{

@@ -176,8 +176,9 @@ public class PlayersManager : MonoBehaviour
 					StartCoroutine(AnimMove(playersAtPrewCard[i].Chip,pos[i],MoveTime));
 				else
 					yield break;
-			} catch 
+			} catch (Exception e)
 			{
+                Debug.LogError(e);
 				Debug.LogError("Ошибка в итерации прыжка фишки. "+i);
 			}
 		}
