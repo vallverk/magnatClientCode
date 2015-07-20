@@ -17,7 +17,7 @@ public class GiftField : MonoBehaviour
 		gift = data;
 		if (!string.IsNullOrEmpty(data.image))
 		{
-			data.image = "http://moderator.magnatgame.com"+data.image;
+			data.image = "https://moderator.magnatgame.com"+data.image;
 			data.image = data.image.Replace("/action/","/gift/");
 			//Debug.LogError(data.image);
 			ImageLoader.Instance.LoadAvatar(data.image,(tex)=>{

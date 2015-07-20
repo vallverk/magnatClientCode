@@ -14,7 +14,7 @@ public class UserGiftField : MonoBehaviour
 	{
 		gift = data;
 		if (!string.IsNullOrEmpty(data.image))
-			data.image = "http://moderator.magnatgame.com"+data.image;
+			data.image = "https://moderator.magnatgame.com"+data.image;
 			ImageLoader.Instance.LoadAvatar(data.image,(tex)=>{
 				Vector2 size = UITools.ResizeTo(tex,120);
 				IconTexture.width = (int)size.x;

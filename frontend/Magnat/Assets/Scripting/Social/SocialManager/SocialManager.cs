@@ -90,7 +90,9 @@ public class SocialManager : MonoBehaviour
 
 		//this.ViewerID = "42048261"; // Alex
 		//this.ViewerID = "25417055"; // Oleg
-        this.AuthKey = MD5Convertor.getMd5Hash("4803588_" + this.ViewerID + "_Zy8R7D5GEqG4YtgIBNgm");
+        this.AuthKey = MD5Convertor.getMd5Hash("4496266_" + this.ViewerID + "_E4YICIo0hwlML3eJoGiZ");
+
+       // this.AuthKey = MD5Convertor.getMd5Hash("4803588_" + this.ViewerID + "_Zy8R7D5GEqG4YtgIBNgm");
 		IsLoaded = true;
 		OnBaseDataLoaded();
 		#endif
@@ -124,7 +126,7 @@ public class SocialManager : MonoBehaviour
 	{
 		
 		if (a.StartsWith("https"))
-            Protocol = "http";
+            Protocol = "https";
 		else
 			Protocol = "http";
 		

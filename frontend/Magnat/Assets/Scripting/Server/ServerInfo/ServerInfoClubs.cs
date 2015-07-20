@@ -91,7 +91,7 @@ public partial class ServerInfo : Singleton<ServerInfo>
 				ClubInfo club = JSONSerializer.Deserialize<ClubInfo>(res.Args[0].ToString());
 				club.ID = ClubID;
 				club.LevelName = statuses[club.Lavel-1].Title;
-                club.Icon = club.Icon.Replace("http:", "http:");
+                club.Icon = club.Icon.Replace("http:", "https:");
 				Callback(club);
 			});
 		});

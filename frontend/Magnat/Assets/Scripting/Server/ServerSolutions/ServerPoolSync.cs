@@ -80,7 +80,7 @@ public class ServerPoolSync : MonoBehaviour
 						"Content-Type: application/x-www-form-urlencoded\r\n\r\n{1}";
 		string q = string.Format(header,
 		                         data.Length,data,Host,Port,Q.Type);
-		//print("Send (POST) = "+q);
+		print("Send (POST) = "+q);
 
 		if (!SocketClient.Send(_s,q))
 		{
@@ -89,7 +89,7 @@ public class ServerPoolSync : MonoBehaviour
 		}
 
 		string r = SocketClient.Receive(_s);
-		//print("Recieved (POST) = "+r);
+		print("Recieved (POST) = "+r);
 
 		if (string.IsNullOrEmpty(r))
 			return null;
