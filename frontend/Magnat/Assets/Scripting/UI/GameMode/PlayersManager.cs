@@ -47,8 +47,8 @@ public class PlayersManager : MonoBehaviour
 		int b = UnityEngine.Random.Range(1,7);
 
 #if UNITY_EDITOR
-        a = 1;
-        b = 1;
+//        a = 1;
+//        b = 1;
 #endif
 
 		ValueA = a;
